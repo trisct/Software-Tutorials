@@ -20,6 +20,8 @@ Some commonly used flags are as follows.
 
 `--shm-size="4g"` specifies the size of the shared memory (size of /dev/shm)
 
+`--rm` means to remove a container automatically after it stops
+
 ### `docker stop` command
 
 This stops a running container
