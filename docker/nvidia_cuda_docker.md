@@ -24,7 +24,7 @@ systemctl restart docker
 
 ## 2. Test if the environment works
 
-The following command executes a run-and-toss container to see if `nvidia-smi` work. One should note that the cuda version in the tag should match the original cuda version installed on the host machine. Surely remember to use `--gpus all`.
+The following command executes a run-and-toss container to see if `nvidia-smi` work. One should note that the **cuda version in the tag should match the original cuda version** installed on the host machine. Surely remember to use `--gpus all`.
 
 ```
 sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
