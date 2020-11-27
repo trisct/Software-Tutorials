@@ -55,7 +55,7 @@ These docker images come with preinstalled `nvcc` and cuda libraries. One **shou
 
 For a complete list of usable tags and their descriptions see its [docker hub page](https://hub.docker.com/r/nvidia/cuda) or the [gitlab page](https://gitlab.com/nvidia/container-images/cuda/blob/master/doc/supported-tags.md)
 
-### Potential problem: GPG key error
+#### Potential problem 2: GPG key error
 
 This could be the problem of the CDN that hosts the Nvidia repos (at [developer.download.nvidia.com](developer.download.nvidia.com)). Current solutions:
 
@@ -66,7 +66,7 @@ This could be the problem of the CDN that hosts the Nvidia repos (at [developer.
 
 Some related discussion are at [here](https://github.com/NVIDIA/nvidia-docker/issues/1369), [here](https://github.com/NVIDIA/nvidia-docker/issues/613), [here](https://github.com/NVIDIA/nvidia-docker/issues/969), [here](https://github.com/NVIDIA/nvidia-docker/issues/658) and [here](https://blog.csdn.net/weixin_43545898/article/details/108960744).
 
-### Potential problem: nvcc not found
+#### Potential problem 3: nvcc not found
 
 `nvcc` is supposed to exist at the creation of the container. However it is possible that after installing some other apps (or maybe updating libraries, I don't know), `nvcc` becomes unavailable. Don't install with `apt install nvidia-cuda-toolkit`. Check if `nvcc` exists in the local CUDA path, which is located at `/usr/local/cuda-x.x`. If so, then the problem is with `PATH`. Add the following to `~/.bashrc`.
 
@@ -78,3 +78,6 @@ export CUDA_HOME=$CUDA_HOME:/usr/local/cuda-x.x
 
 Change `cuda-x.x` to your version of installtion.
 
+#### Potential problem 4: Nvidia driver version mismatch
+
+This happens if the docker has a newer Nvidia driver version than the host machine, but they have the same CUDA version. The reason is that in `/usr/lib/x86_64-linux-gnu`, we have a symbolic link `libcuda.so.1 -> libcuda.so.xxx.xxx.xx`, where `xxx.xxx.xx` is the default version that comes with the docker image. However, if the Nvidia driver of the host machine has a lower version, this could cause a mismatch. The solution is to relink `libcuda.so.1`.
