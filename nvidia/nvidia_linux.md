@@ -12,7 +12,55 @@ The correct and safe way would be to download the installation files from the [o
 
 It is recommended to use the local installer. It can be seen from the installation guide of the network installer that it first adds a new repo to the list of `apt` repos, and then install from it using `apt`. However, if there was a previous installation of CUDA, there would be an entry of a repo for an older version of Nvidia libraries, which takes higher priority when running `apt update` because it is installed early. Hence you would end up with a new driver but old libraries.
 
-If you are sure to do it this way, delete the old repos first manually. Even if you don't plan to do it this way, delete them anyway after you have successfully installed the new version.
+
+
+If you are sure to do it this way, delete the old repos first manually. Even if you don't plan to do it this way, delete them anyway after you have successfully installed the new version. A reference on Askubuntu about deleting repos is [here](https://askubuntu.com/questions/43345/how-to-remove-a-repository). I also record my experience in __potential problem 2__ below.
+
+#### Potential problem 2: Version mismatch after installing
+
+This often raises the error when running `nvidia-smi`:
+
+```
+Failed to initialize NVML: Driver/library version mismatch
+```
+
+which means the Nvidia driver and CUDA libraries have different version. Either the installation is wrong or you didn't remove the old executable/libraries/repos from `PATH` and other system variables.
+
+First there's an easy thing you can do:
+
+```
+apt-get autoremove
+```
+
+This will remove the old libraries. However, it is possible that we still get the same error. A weird thing is that `nvcc` might report an older version of itself even after deleting the old version. This can be solved by removing `/usr/bin/nvcc` and set the right path in `~/.bashrc` because `nvcc` actually resides in `/usr/local/cuda-11.1/bin/nvcc`. Also, see if the variables mentioned in __Protential problem 2__ in the ___On Linux docker___ section are correctly set. If not, edit it and then do
+
+```
+source ~/.bashrc
+```
+
+Still, even though now `nvcc` points to the correct path, it is still possible that `nvidia-smi` reports a mismatch between driver and libraries. Now delete `/usr/bin/nvidia-smi`. Then run `nvidia-smi` and the terminal will prompt you that it is not found and you need
+
+```
+apt install nvidia-utils-xxx
+```
+
+to install it. And if you do try to install it tells you that it is already installed. If this happens, do
+
+```
+apt install --reinstall nvidia-utils-xxx
+```
+
+This should do it.
+
+
+
+#### Potential problem 4: The legacy repos
+
+This is to save ourselves from any future trouble. Go to `/etc/apt/sources.list.d/` and you might see some files of local CUDA repos of older versions. You'll see that inside these files they point to `/var/`. Deleting those in `/var/` as well as those in `/etc/apt/sources.list.d/`.
+
+Also, remove all under `/var/lib/apt/lists/` and then do `apt update` for a clean refresh of all repos.
+
+
 
 ## On Linux docker
 
@@ -66,7 +114,7 @@ This could be the problem of the CDN that hosts the Nvidia repos (at [developer.
 
 Some related discussion are at [here](https://github.com/NVIDIA/nvidia-docker/issues/1369), [here](https://github.com/NVIDIA/nvidia-docker/issues/613), [here](https://github.com/NVIDIA/nvidia-docker/issues/969), [here](https://github.com/NVIDIA/nvidia-docker/issues/658) and [here](https://blog.csdn.net/weixin_43545898/article/details/108960744).
 
-#### Potential problem 3: nvcc not found
+#### Potential problem 1: nvcc not found
 
 `nvcc` is supposed to exist at the creation of the container. However it is possible that after installing some other apps (or maybe updating libraries, I don't know), `nvcc` becomes unavailable. Don't install with `apt install nvidia-cuda-toolkit`. Check if `nvcc` exists in the local CUDA path, which is located at `/usr/local/cuda-x.x`. If so, then the problem is with `PATH`. Add the following to `~/.bashrc`.
 
@@ -78,6 +126,6 @@ export CUDA_HOME=$CUDA_HOME:/usr/local/cuda-x.x
 
 Change `cuda-x.x` to your version of installtion.
 
-#### Potential problem 4: Nvidia driver version mismatch
+#### Potential problem 2: Nvidia driver version mismatch
 
 This happens if the docker has a newer Nvidia driver version than the host machine, but they have the same CUDA version. The reason is that in `/usr/lib/x86_64-linux-gnu`, we have a symbolic link `libcuda.so.1 -> libcuda.so.xxx.xxx.xx`, where `xxx.xxx.xx` is the default version that comes with the docker image. However, if the Nvidia driver of the host machine has a lower version, this could cause a mismatch. The solution is to relink `libcuda.so.1`.
