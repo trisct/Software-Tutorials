@@ -2,6 +2,7 @@
 # A 2 x 2 square mapped with a 1 x 1 square
 # texture stretched to fit the square exactly.
 #mtllib master.mtl
+
 v  0.000000 2.000000 0.000000
 v  0.000000 0.000000 0.000000
 v  2.000000 0.000000 0.000000
