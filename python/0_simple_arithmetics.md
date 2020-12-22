@@ -2,7 +2,7 @@
 
 ### Basic arithmetics
 
-In python, you can perform simple arithmetics
+In python, you can perform simple arithmetics.
 
 ```
 >>> 3+5 # addition
@@ -70,4 +70,4 @@ A negative index means to count backwards from the end.
 10
 >>> a[-2]
 9
-``` 
+```
