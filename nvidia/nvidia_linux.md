@@ -12,7 +12,15 @@ The correct and safe way would be to download the installation files from the [o
 
 It is recommended to use the local installer. It can be seen from the installation guide of the network installer that it first adds a new repo to the list of `apt` repos, and then install from it using `apt`. However, if there was a previous installation of CUDA, there would be an entry of a repo for an older version of Nvidia libraries, which takes higher priority when running `apt update` because it is installed early. Hence you would end up with a new driver but old libraries.
 
-
+```
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.0-460.27.04-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu2004-11-2-local_11.2.0-460.27.04-1_amd64.deb
+sudo apt-key add /var/cuda-repo-ubuntu2004-11-2-local/7fa2af80.pub
+sudo apt-get update
+sudo apt-get -y install cuda
+```
 
 If you are sure to do it this way, delete the old repos first manually. Even if you don't plan to do it this way, delete them anyway after you have successfully installed the new version. A reference on Askubuntu about deleting repos is [here](https://askubuntu.com/questions/43345/how-to-remove-a-repository). I also record my experience in __potential problem 2__ below.
 
