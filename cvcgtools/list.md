@@ -6,3 +6,4 @@
 - trimesh
 - gptoolbox: geometry processing toolbox
 - GAPS
+- opengl
