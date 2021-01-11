@@ -1,2 +1,5 @@
+# folders
+.vscode/
+
 # pdf
 nvidia/1_cuda_programming/CUDA_C_Programming_Guide.pdf
