@@ -8,7 +8,7 @@ Sometimes mimetype gets the wrong type. For example, both `.txt` and `.ply` are 
 
 Create an `xml` file containing the relevant information of the filetype, for example, in a file called `ply-mime.xml` type:
 ```
-    <?xml version="1.0"?>  
+<?xml version="1.0"?>  
 <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>  
     <mime-type type="application/extension-ply">  
         <comment>.ply file</comment>  
