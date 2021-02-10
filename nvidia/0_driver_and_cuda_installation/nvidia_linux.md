@@ -129,7 +129,7 @@ Some related discussion are at [here](https://github.com/NVIDIA/nvidia-docker/is
 ```
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-x.x/lib64
 export PATH=$PATH:/usr/local/cuda-x.x/bin
-export CUDA_HOME=$CUDA_HOME:/usr/local/cuda-x.x
+export CUDA_HOME=/usr/local/cuda-x.x
 ```
 
 Change `cuda-x.x` to your version of installtion.
