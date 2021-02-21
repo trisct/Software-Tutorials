@@ -1,0 +1,3 @@
+# PyTorch Installation
+
+https://download.pytorch.org/whl/torch_stable.html

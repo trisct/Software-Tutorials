@@ -20,4 +20,4 @@ cd gaps
 make mesa -j8
 ```
 
-__Known issue__: When compiling with gcc, the error might appear that `GLAPI does not name a type`. In this case, go to `/usr/include/GL` and open `osmesa.h` in an editor and change all `GLAPI` preceeding function dfinitions to `extern`.
+__Known issue__: When compiling with gcc, the error might appear that `GLAPI does not name a type`. In this case, go to `/usr/include/GL` and open `osmesa.h` in an editor and change all `GLAPI` preceeding function definitions to `extern`.
