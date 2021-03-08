@@ -1,0 +1,4 @@
+https://www.khronos.org/opengl/wiki/Getting_Started#Tutorials_and_How_To_Guides
+
+https://nicolbolas.github.io/oldtut/Basics/Intro%20Graphics%20and%20Rendering.html
+https://www.opengl-tutorial.org/beginners-tutorials/tutorial-1-opening-a-window/
