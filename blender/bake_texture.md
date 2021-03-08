@@ -10,7 +10,7 @@ To make things easier, the OBJ file should contain only one object (those groupe
 
 ### 2. Duplicate object
 
-Copy your object and delete all materials associated to the copy (rememeber to delete slots). Create one new material for the copy. Define a new UV map that unwraps the whole mesh to one.
+Copy your object and delete all materials associated to the copy (remember to delete slots). Create one new material for the copy. Define a new UV map that unwraps the whole mesh to one.
 
 Set a new _Image Texture_ node to the new material. Set a new _UV map_ node and connect it to the texture node.
 
