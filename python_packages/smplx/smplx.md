@@ -2,7 +2,11 @@
 
 This is a python package that includes SMPL, SMPL-X, SMPL-H and MANO models.
 
-### SMPL Usage
+[TOC]
+
+## SMPL
+
+### SMPL Pose Parameters
 
 `SMPL` model is defined in `smplx/smplx/body_models.py`. Its `body_pose` is a tensor of shape `[N, 23*3]`. You can reshape it to `[N, 23, 3]` for better understanding. After this reshaping, each index `i` in dim 1 corresponds to a joint, and each index `j` in dim 2 corresponds to an axis w.r.t. which to rotate.
 
@@ -34,3 +38,33 @@ Note that, the rotation of a joint is relative to its parent node.
 | 21    | left palm, excluding thumb  | 19     |
 | 22    | right palm, excluding thumb | 20     |
 
+### SMPL Model Usage
+
+For an example, use
+
+```shell
+python examples/my_try.py
+```
+
+Some key steps are:
+
+__(1) create a model__ with
+
+```python
+model = smplx.create(model_folder, model_type='smpl', gender='neutral')
+```
+
+This returns a `SMPL` class instance object, which is a derived class of `torch.nn.Module`.
+
+__(2) Its forward call__ is actually a mapping from SMPL parameters to the final SMPL model output, e.g. vertices. If some parameters are not given, then the ones stored in the model will be used. The parameters it uses are
+
+| Name               | Type           | Shape                 | Function                                                     |
+| ------------------ | -------------- | --------------------- | ------------------------------------------------------------ |
+| `betas`            | `torch.Tensor` | [N, num_betas] (=10)  | body shape parameters (batched)                              |
+| `body_pose`        | `torch.Tensor` | [N, num_joints] (=69) | joint rotation angles (23 joints, 3 directions each) (batched) |
+| `global_orient`    | `torch.Tensor` |                       |                                                              |
+| `transl`           | `torch.Tensor` |                       |                                                              |
+| `return_verts`     | `bool`         |                       |                                                              |
+| `return_full_pose` | `bool`         |                       |                                                              |
+
+__(3) Its returned object__ by `forward` is a `SMPLOutput` class instance object.
