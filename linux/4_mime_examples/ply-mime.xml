@@ -1,0 +1,7 @@
+<?xml version="1.0"?>  
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>  
+    <mime-type type="application/extension-ply">  
+        <comment>.ply file</comment>  
+        <glob pattern="*.ply"/>  
+    </mime-type>  
+</mime-info>
