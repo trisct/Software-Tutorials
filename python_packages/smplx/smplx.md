@@ -67,4 +67,4 @@ __(2) Its forward call__ is actually a mapping from SMPL parameters to the final
 | `return_verts`     | `bool`         |                       |                                                              |
 | `return_full_pose` | `bool`         |                       |                                                              |
 
-__(3) Its returned object__ by `forward` is a `SMPLOutput` class instance object.
+__(3) Its returned object__ by `forward` is a `SMPLOutput` class instance object. Some of its attributes are listed below.
