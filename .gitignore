@@ -11,3 +11,8 @@ nvidia/1_cuda_programming/CUDA_C_Programming_Guide.pdf
 *bin/
 *build/
 *.so
+
+
+# specific files
+
+python_packages/cython/0_building/hello_app.c
