@@ -45,3 +45,5 @@ r = pyrender.OffscreenRenderer(viewport_width=640,
 color, depth = r.render(scene, flags=RenderFlags.RGBA)
 plt.imshow(color)
 plt.show()
+
+# ((y0+0.00176702)*(y0+0.00176702)+(z0-0.0441555)*(z0-0.0441555)<0.33) && ((y1+0.00176702)*(y1+0.00176702)+(z1-0.0441555)*(z1-0.0441555)<0.33) && ((y2+0.00176702)*(y2+0.00176702)+(z2-0.0441555)*(z2-0.0441555)<0.33)
