@@ -1,0 +1,74 @@
+# currently failing to build
+
+
+nvcc -v inc_cuda_main.cpp inc_cuda.cu inc_cuda.cpp \
+-I/usr/include \
+-I/usr/local/include \
+-I/home/trisst/.dev_libraries/libtorch-gpu/libtorch/include \
+-I/home/trisst/.dev_libraries/libtorch-gpu/libtorch/include/torch/csrc/api/include \
+-L/usr/local/lib \
+-L/usr/lib \
+-L/home/trisst/.dev_libraries/libtorch-gpu/libtorch/lib \
+-L/usr/local/cuda-11.1/lib64 \
+-lasmjit \
+-lbackend_with_compiler \
+-lbenchmark \
+-lbenchmark_main \
+-lc10_cuda \
+-lc10d \
+-lc10d_cuda_test \
+-lc10 \
+-lcaffe2_detectron_ops_gpu \
+-lcaffe2_module_test_dynamic \
+-lcaffe2_nvrtc \
+-lcaffe2_observers \
+-lCaffe2_perfkernels_avx2 \
+-lCaffe2_perfkernels_avx512 \
+-lCaffe2_perfkernels_avx \
+-lcaffe2_protos \
+-lclog \
+-lcpuinfo \
+-lcpuinfo_internals \
+-lcudart \
+-ldnnl \
+-lfbgemm \
+-lfmt \
+-lfoxi_loader \
+-lgloo \
+-lgloo_cuda \
+-lgmock \
+-lgmock_main \
+-lgomp \
+-lgtest \
+-lgtest_main \
+-ljitbackend_test \
+-lkineto \
+-lmkldnn \
+-lnnpack \
+-lnnpack_reference_layers \
+-lnvrtc \
+-lnvrtc-builtins \
+-lnvToolsExt \
+-lonnx \
+-lonnx_proto \
+-lprocess_group_agent \
+-lprotobuf \
+-lprotobuf-lite \
+-lprotoc \
+-lpthreadpool \
+-lpytorch_qnnpack \
+-lqnnpack \
+-lshm \
+-ltensorpipe \
+-ltensorpipe_agent \
+-ltensorpipe_uv \
+-ltorchbind_test \
+-ltorch_cpu \
+-ltorch_cuda_cpp \
+-ltorch_cuda_cu \
+-ltorch_cuda \
+-ltorch_global_deps \
+-ltorch_python \
+-ltorch \
+-lXNNPACK
+# -D_GLIBCXX_USE_CXX11_ABI=0 \
