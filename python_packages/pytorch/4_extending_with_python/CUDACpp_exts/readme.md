@@ -11,7 +11,7 @@ project_folder/
 	setup.py
 ```
 
-Note that the `cu` and `cpp` file(s) must NOT be named the same. Otherwise a `multiple definition of xxx` error appears at compilation, since `setuptools` cannot distinguish files with different extension names.
+**Note that the `cu` and `cpp` file(s) must NOT be named the same. Otherwise a `multiple definition of xxx` error appears at compilation, since `setuptools` cannot distinguish files with different extension names.**
 
 ### Header File
 
@@ -32,3 +32,5 @@ In `setup.py` you specify the relative information about the custom cpp function
 ### Python Interface File
 
 Same as before, you inherit a `torch.autograd.Function` class where you call the custom forward, backward functions.
+
+**Remember to call `continguous()` on tensors.**
