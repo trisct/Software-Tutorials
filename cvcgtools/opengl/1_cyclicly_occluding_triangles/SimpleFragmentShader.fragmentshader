@@ -1,0 +1,10 @@
+#version 460
+
+// Ouput data
+in vec3 outVertexColor;
+out vec3 color;
+
+void main()
+{
+	color = outVertexColor;
+}
