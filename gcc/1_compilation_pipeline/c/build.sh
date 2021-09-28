@@ -1,0 +1,1 @@
+gcc -O2 -g -o p -v main.c swap.c

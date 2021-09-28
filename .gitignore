@@ -18,3 +18,5 @@ nvidia/1_cuda_programming/CUDA_C_Programming_Guide.pdf
 python_packages/cython/0_building/hello_app.c
 
 *.ply
+__pycache__/
+*egg-info
