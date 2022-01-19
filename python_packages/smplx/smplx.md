@@ -14,29 +14,29 @@ Note that, the rotation of a joint is relative to its parent node.
 
 | Index | Part                        | Parent |
 | ----- | --------------------------- | ------ |
-| 0     | whole left leg              | root   |
-| 1     | whole right leg             | root   |
-| 2     | upper body above waist      | root   |
-| 3     | lower left leg              | 0      |
-| 4     | lower right leg             | 1      |
-| 5     | upper body above stomach    | 2      |
-| 6     | left foot                   | 3      |
-| 7     | right foot                  | 4      |
-| 8     | upper body above chest      | 5      |
-| 9     | left foot toes              | 6      |
-| 10    | right foot toes             | 7      |
-| 11    | above neck                  | 8      |
-| 12    | left arm from shoulder      | 8      |
-| 13    | right arm from shoulder     | 8      |
-| 14    | head                        | 11     |
-| 15    | left arm from biceps        | 12     |
-| 16    | right arm from biceps       | 13     |
-| 17    | left arm from elbow         | 15     |
-| 18    | right arm from elbow        | 16     |
-| 19    | left arm from forearm       | 17     |
-| 20    | right arm from forearm      | 18     |
-| 21    | left palm, excluding thumb  | 19     |
-| 22    | right palm, excluding thumb | 20     |
+| 1     | whole left leg              | root   |
+| 2     | whole right leg             | root   |
+| 3     | upper body above waist      | root   |
+| 4     | lower left leg              | 0      |
+| 5     | lower right leg             | 1      |
+| 6     | upper body above stomach    | 2      |
+| 7     | left foot                   | 3      |
+| 8     | right foot                  | 4      |
+| 9     | upper body above chest      | 5      |
+| 10    | left foot toes              | 6      |
+| 11    | right foot toes             | 7      |
+| 12    | above neck                  | 8      |
+| 13    | left arm from shoulder      | 8      |
+| 14    | right arm from shoulder     | 8      |
+| 15    | head                        | 11     |
+| 16    | left arm from biceps        | 12     |
+| 17    | right arm from biceps       | 13     |
+| 18    | left arm from elbow         | 15     |
+| 19    | right arm from elbow        | 16     |
+| 20    | left arm from forearm       | 17     |
+| 21    | right arm from forearm      | 18     |
+| 22    | left palm, excluding thumb  | 19     |
+| 23    | right palm, excluding thumb | 20     |
 
 ### SMPL Model Usage
 

@@ -6,13 +6,13 @@ from pytorch3d.structures import Meshes
 from pytorch3d.utils import ico_sphere
 from pytorch3d.ops import sample_points_from_meshes
 from pytorch3d.loss import (
-    chamfer_distance, 
+    chamfer_distance,
     mesh_edge_loss, 
     mesh_laplacian_smoothing, 
     mesh_normal_consistency,
 )
 import numpy as np
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -41,10 +41,13 @@ def plot_pointcloud(mesh, title=""):
     plt.show()
 
 # Load the dolphin mesh.
-trg_obj = os.path.join('dolphin.obj')
+# trg_obj = os.path.join('dolphin.obj')
+trg_obj = os.path.join('0006_scan_normalized.obj')
+src_obj = os.path.join('0006_smpl_normalized_reindexed_subdivide_55030.obj')
 
 # We read the target 3D model using load_obj
 verts, faces, aux = load_obj(trg_obj)
+verts_src, faces_src, aux_src = load_obj(src_obj)
 
 # verts is a FloatTensor of shape (V, 3) where V is the number of vertices in the mesh
 # faces is an object which contains the following LongTensors: verts_idx, normals_idx and textures_idx
@@ -52,41 +55,51 @@ verts, faces, aux = load_obj(trg_obj)
 faces_idx = faces.verts_idx.to(device)
 verts = verts.to(device)
 
+faces_idx_src = faces_src.verts_idx.to(device)
+verts_src = verts_src.to(device)
+
 # We scale normalize and center the target mesh to fit in a sphere of radius 1 centered at (0,0,0). 
 # (scale, center) will be used to bring the predicted mesh to its original center and scale
 # Note that normalizing the target mesh, speeds up the optimization but is not necessary!
-center = verts.mean(0)
-verts = verts - center
-scale = max(verts.abs().max(0)[0])
-verts = verts / scale
+### NOTE no need for THuman
+# center = verts.mean(0)
+# verts = verts - center
+# scale = max(verts.abs().max(0)[0])
+# verts = verts / scale
 
 # We construct a Meshes structure for the target mesh
 trg_mesh = Meshes(verts=[verts], faces=[faces_idx])
+src_mesh = Meshes(verts=[verts_src], faces=[faces_idx_src])
 
 # We initialize the source shape to be a sphere of radius 1
-src_mesh = ico_sphere(4, device)
+# src_mesh = ico_sphere(4, device)
 
 # %matplotlib notebook
-plot_pointcloud(trg_mesh, "Target mesh")
-plot_pointcloud(src_mesh, "Source mesh")
+# plot_pointcloud(trg_mesh, "Target mesh")
+# plot_pointcloud(src_mesh, "Source mesh")
 
 # We will learn to deform the source mesh by offsetting its vertices
 # The shape of the deform parameters is equal to the total number of vertices in src_mesh
+
+# what is the difference from torch.zeros_like?
 deform_verts = torch.full(src_mesh.verts_packed().shape, 0.0, device=device, requires_grad=True)
 
 # The optimizer
-optimizer = torch.optim.SGD([deform_verts], lr=1.0, momentum=0.9)
+optimizer = torch.optim.SGD([deform_verts], lr=0.5, momentum=0.9)
 
 # Number of optimization steps
 Niter = 2000
 # Weight for the chamfer loss
-w_chamfer = 1.0 
+w_chamfer = 1.0
 # Weight for mesh edge loss
-w_edge = 1.0 
+w_edge = 1
+# w_edge = 0
 # Weight for mesh normal consistency
-w_normal = 0.01 
+#w_normal = 0.01
+w_normal = 0
 # Weight for mesh laplacian smoothing
-w_laplacian = 0.1 
+#w_laplacian = 0.1
+w_laplacian = 0
 # Plot period for the losses
 plot_period = 250
 loop = tqdm(range(Niter))
@@ -132,8 +145,8 @@ for i in loop:
     laplacian_losses.append(float(loss_laplacian.detach().cpu()))
     
     # Plot mesh
-    if i % plot_period == 0:
-        plot_pointcloud(new_src_mesh, title="iter: %d" % i)
+    # if i % plot_period == 0:
+    #     plot_pointcloud(new_src_mesh, title="iter: %d" % i)
         
     # Optimization step
     loss.backward()
@@ -154,7 +167,7 @@ ax.set_title("Loss vs iterations", fontsize="16")
 final_verts, final_faces = new_src_mesh.get_mesh_verts_faces(0)
 
 # Scale normalize back to the original target size
-final_verts = final_verts * scale + center
+# final_verts = final_verts * scale + center
 
 # Store the predicted mesh using save_obj
 final_obj = os.path.join('./', 'final_model.obj')
